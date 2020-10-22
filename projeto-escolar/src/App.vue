@@ -1,16 +1,19 @@
 <template>
 	<div id="app">
-		<Students />
+    <Nav/>
+    <div class="marginMain">
+      <router-view></router-view>
+    </div>
 	</div>
 </template>
 
 <script>
-import Students from "./components/Student/Students.vue";
+import Nav from './components/nav/Nav'
 
 export default {
 	name: "App",
 	components: {
-		Students,
+    Nav
 	},
 };
 </script>
@@ -28,7 +31,12 @@ export default {
     margin: 0;
     height: 100%;
   }
+  .marginMain {
+    width: 50%;
+    margin: auto;
+  }
   #app {
+    width: 100%;
   }
 
   .btn_danger {

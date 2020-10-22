@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<Title text_info="Aluno"/>
+		<Title text_info="Alunos"/>
 		<div>
 			<input type="text" placeholder="Nome do Aluno" v-model="name" @keyup.enter="addStudent()" />
 			<button class="btn btnInput" @click="addStudent()">Adicionar</button>
@@ -82,18 +82,18 @@ export default {
 
 <style scoped>
 	input {
+		width: calc(100% - 195px);
 		border: 0;
 		padding: 20px;
 		font-size: 1.3em;
 		color: #687f7f;
-		display: inline;
 	}
 	.btnInput {
+		width: 150px;
 		border: 0px;
 		padding: 20px;
 		font-size: 1.3em;
 		background-color: rgb(116, 115, 115);
-		display: inline;
 	}
 	.btnInput:hover {
 		padding: 20px;
