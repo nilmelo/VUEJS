@@ -33,8 +33,9 @@
       }
     },
     {
-      "name": "Joaquina Pereira",
-      "lastname": "",
+      "name": "Joaquina",
+      "lastname": "Pereira",
+      "dateBirth": "01/02/2005",
       "id": 3,
       "professor": {
         "id": 3,
@@ -42,8 +43,8 @@
       }
     },
     {
-      "name": "Alexandra Melo",
-      "lastname": "",
+      "name": "Alexandra",
+      "lastname": "Melo",
       "professor": {
         "id": 2,
         "name": "Alexandre"

@@ -47,6 +47,7 @@ export default {
     padding: 10px 20px;
     cursor: pointer;
     border: 1px solid #000;
+    font-size: 1.2em;
     color: white;
     font-weight: bold;
     border-radius: 5px;
@@ -78,7 +79,7 @@ export default {
     padding: 10px 0px;
     text-align: center !important;
   }
-  .colPequeno {
+  .colSmall {
     width: 5%;
   }
 
