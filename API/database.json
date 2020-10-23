@@ -1,19 +1,45 @@
 {
+  "professors": [
+    {
+      "id": 1,
+      "name": "Nilson"
+    },
+    {
+      "id": 2,
+      "name": "Alexandre"
+    },
+    {
+      "id": 3,
+      "name": "Manoela"
+    }
+  ],
   "students": [
     {
-      "name": "Toim",
+      "name": "Toim ATT",
       "lastname": "",
-      "id": 1
+      "id": 1,
+      "professor": {
+          "id": 1,
+          "name": "Nilson"
+        }
     },
     {
       "name": "Julia",
       "lastname": "",
-      "id": 2
+      "id": 2,
+      "professor": {
+          "id": 1,
+          "name": "Nilson"
+        }
     },
     {
       "name": "Joaquina Pereira",
       "lastname": "",
-      "id": 3
+      "id": 3,
+      "professor": {
+          "id": 3,
+          "name": "Manoela"
+        }
     }
   ]
 }

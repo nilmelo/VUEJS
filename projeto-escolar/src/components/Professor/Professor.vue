@@ -10,10 +10,12 @@
 			<tbody v-if="professors.length">
 				<tr v-for="(professor, index) in professors" :key="index">
 					<td>{{ professor.id }}</td>
-                    <router-link to="/alunos" tag="td" style="cursor: pointer">
+                    <router-link :to="`/alunos/${professor.id}`" tag="td" style="cursor: pointer">
                         {{ professor.name }} {{ professor.lastname }}
                     </router-link>
-					<td>3</td>
+					<td>
+                        {{ professor.qtyStudents }}
+                    </td>
 				</tr>
 			</tbody>
 			<tfoot v-else>
@@ -32,13 +34,43 @@ import Title from '../shared/Title'
         },
        data() {
            return {
-               professors: [
-                   { id: 1, name: 'Nilson' },
-                   { id: 2, name: 'Alexandre' },
-                   { id: 3, name: 'Manoela' }
-               ]
+               professors: [],
+               students: []
            }
-       } 
+       },
+       created() {
+		this.$http
+			.get('http://localhost:3000/students')
+			.then(res => res.json())
+			.then(students => {
+                this.students = students;
+                this.loadProfessors();
+            });
+        },
+        props: {},
+        methods: {
+            getQtyStudentsPerProfessor() {
+                this.professors.forEach((professor, index) => {
+                    professor = {
+                        id: professor.id,
+                        name: professor.name,
+                        qtyStudents: this.students.filter(student => 
+                            student.professor.id == professor.id)
+                            .length
+                    }
+                    this.professors[index] = professor;
+                });
+            },
+            loadProfessors() {
+                this.$http
+                    .get('http://localhost:3000/professors')
+                    .then(res => res.json())
+                    .then(professors => {
+                        this.professors = professors;
+                        this.getQtyStudentsPerProfessor();
+                    });
+            }   
+        }
     }
 </script>
 

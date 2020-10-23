@@ -1,9 +1,16 @@
 <template>
 	<div>
-		<Title text_info="Alunos"/>
+		<Title text_info="Alunos" />
 		<div>
-			<input type="text" placeholder="Nome do Aluno" v-model="name" @keyup.enter="addStudent()" />
-			<button class="btn btnInput" @click="addStudent()">Adicionar</button>
+			<input
+				type="text"
+				placeholder="Nome do Aluno"
+				v-model="name"
+				@keyup.enter="addStudent()"
+			/>
+			<button class="btn btnInput" @click="addStudent()">
+				Adicionar
+			</button>
 		</div>
 
 		<table border="1px">
@@ -31,37 +38,48 @@
 </template>
 
 <script>
-import Title from '../shared/Title';
+import Title from "../shared/Title";
 
 export default {
 	components: {
-		Title
+		Title,
 	},
 	data() {
 		return {
 			title: "Aluno",
+			professorid: this.$route.params.prof_id,
 			name: "",
-			students: []
+			students: [],
 		};
 	},
 	created() {
-		this.$http
-			.get('http://localhost:3000/students')
-			.then(res => res.json())
-			.then(students => this.students = students);
+		if (this.professorid) {
+			this.$http
+				.get(
+					"http://localhost:3000/students?professor.id=" +
+						this.professorid
+				)
+				.then((res) => res.json())
+				.then((students) => (this.students = students));
+		} else {
+			this.$http
+				.get("http://localhost:3000/students")
+				.then((res) => res.json())
+				.then((students) => (this.students = students));
+		}
 	},
 	props: {},
 	methods: {
 		addStudent() {
 			let _student = {
 				name: this.name,
-				lastname: ""
+				lastname: "",
 			};
 
 			this.$http
-				.post('http://localhost:3000/students', _student)
-				.then(res => res.json())
-				.then(studentReturned => {
+				.post("http://localhost:3000/students", _student)
+				.then((res) => res.json())
+				.then((studentReturned) => {
 					this.students.push(studentReturned);
 					this.name = "";
 				});
@@ -73,32 +91,30 @@ export default {
 					let i = this.students.indexOf(student);
 					this.students.splice(i, 1);
 				});
-
-			
-		}
-	}
+		},
+	},
 };
 </script>
 
 <style scoped>
-	input {
-		width: calc(100% - 195px);
-		border: 0;
-		padding: 20px;
-		font-size: 1.3em;
-		color: #687f7f;
-	}
-	.btnInput {
-		width: 150px;
-		border: 0px;
-		padding: 20px;
-		font-size: 1.3em;
-		background-color: rgb(116, 115, 115);
-	}
-	.btnInput:hover {
-		padding: 20px;
-		margin: 0px;
-		border: 0px;
-		background-color: rgb(175, 173, 173);
-	}
+input {
+	width: calc(100% - 195px);
+	border: 0;
+	padding: 20px;
+	font-size: 1.3em;
+	color: #687f7f;
+}
+.btnInput {
+	width: 150px;
+	border: 0px;
+	padding: 20px;
+	font-size: 1.3em;
+	background-color: rgb(116, 115, 115);
+}
+.btnInput:hover {
+	padding: 20px;
+	margin: 0px;
+	border: 0px;
+	background-color: rgb(175, 173, 173);
+}
 </style>
