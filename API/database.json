@@ -19,27 +19,36 @@
       "lastname": "",
       "id": 1,
       "professor": {
-          "id": 1,
-          "name": "Nilson"
-        }
+        "id": 1,
+        "name": "Nilson"
+      }
     },
     {
       "name": "Julia",
       "lastname": "",
       "id": 2,
       "professor": {
-          "id": 1,
-          "name": "Nilson"
-        }
+        "id": 1,
+        "name": "Nilson"
+      }
     },
     {
       "name": "Joaquina Pereira",
       "lastname": "",
       "id": 3,
       "professor": {
-          "id": 3,
-          "name": "Manoela"
-        }
+        "id": 3,
+        "name": "Manoela"
+      }
+    },
+    {
+      "name": "Alexandra Melo",
+      "lastname": "",
+      "professor": {
+        "id": 2,
+        "name": "Alexandre"
+      },
+      "id": 4
     }
   ]
 }

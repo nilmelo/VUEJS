@@ -1,7 +1,7 @@
 <template>
 	<div>
-		<Title text_info="Alunos" />
-		<div>
+		<Title :text_info="professorid != undefined ? 'Professor: ' + professor.name : 'Alunos'" />
+		<div v-if="professorid != undefined ">
 			<input
 				type="text"
 				placeholder="Nome do Aluno"
@@ -48,12 +48,14 @@ export default {
 		return {
 			title: "Aluno",
 			professorid: this.$route.params.prof_id,
+			professor: {},
 			name: "",
 			students: [],
 		};
 	},
 	created() {
 		if (this.professorid) {
+			this.loadProfessors();
 			this.$http
 				.get(
 					"http://localhost:3000/students?professor.id=" +
@@ -74,6 +76,10 @@ export default {
 			let _student = {
 				name: this.name,
 				lastname: "",
+				professor: {
+					id: this.professor.id,
+					name: this.professor.name
+				}
 			};
 
 			this.$http
@@ -92,6 +98,14 @@ export default {
 					this.students.splice(i, 1);
 				});
 		},
+		loadProfessors() {
+                this.$http
+                    .get('http://localhost:3000/professors/'+ this.professorid)
+                    .then(res => res.json())
+                    .then(professors => {
+                        this.professor = professors
+                    });
+		}
 	},
 };
 </script>
