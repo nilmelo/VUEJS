@@ -1,7 +1,7 @@
 <template>
     <div>
         <div style="display: flex; width: 50%">
-            <h1>{{ text_info }}</h1>
+            <h2>{{ text_info }}</h2>
             <div class="back">
                 <slot></slot>
                 <button v-show="btnBack" class="btn btnBack" @click="back()">Voltar</button>

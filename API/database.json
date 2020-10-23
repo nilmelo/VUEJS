@@ -24,9 +24,10 @@
       }
     },
     {
-      "name": "Julia",
-      "lastname": "",
       "id": 2,
+      "name": "Julia",
+      "lastname": "Jolie",
+      "dateBirth": "13/01/2005",
       "professor": {
         "id": 1,
         "name": "Nilson"
@@ -43,13 +44,14 @@
       }
     },
     {
+      "id": 4,
       "name": "Alexandra",
       "lastname": "Melo",
+      "dateBirth": "10/06/1986",
       "professor": {
         "id": 2,
         "name": "Alexandre"
-      },
-      "id": 4
+      }
     }
   ]
 }

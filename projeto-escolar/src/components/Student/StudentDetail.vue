@@ -46,6 +46,16 @@
                 </tr>
             </tbody>
         </table>
+        <div style="margin-top: 10px">
+            <div v-if="!visualize">
+                <button class="btn btnSave" @click="save(student)">
+                    Salvar
+                </button>
+                <button class="btn btnCancel" @click="cancel()">
+                    Cancelar
+                </button>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -78,6 +88,23 @@
         methods: {
             editToggle() {
                 this.visualize = !this.visualize;
+            },
+            save(_student) {
+                let _studentEdit = {
+                    id: _student.id,
+                    name: _student.name,
+                    lastname: _student.lastname,
+                    dateBirth: _student.dateBirth,
+                    professor: _student.professor,
+                }
+
+                this.$http
+                    .put(`http://localhost:3000/students/${_student.id}`, _studentEdit);
+
+                this.visualize = !this.visualize;
+            },
+            cancel() {
+                this.visualize = !this.visualize;
             }
         },
     }
@@ -88,11 +115,16 @@
     float: right;
     background-color: rgb(76, 186, 249);
 }
+.btnSave {
+    float: right;
+    background-color: rgb(79, 196, 68);
+}
+.btnCancel {
+    float: left;
+    background-color: rgb(249, 186, 92);
+}
 .colSmall {
     width: 20%;
-    text-align: right;
-    background-color: rgb(125, 217, 245);
-    font-weight: bold;
 }
 input, select {
     margin: 0px;

@@ -21,11 +21,11 @@
 			</thead>
 			<tbody v-if="students.length">
 				<tr v-for="(student, index) in students" :key="index">
-					<td>{{ student.id }}</td>
+					<td class="colSmall">{{ student.id }}</td>
 					<router-link :to="`/studentDetail/${student.id}`" tag="td" style="cursor: pointer">
 						{{ student.name }} {{ student.lastname }}
 					</router-link>
-					<td>
+					<td class="colSmall">
 						<button class="btn btn_danger" @click="remove(student)">
 							Remover
 						</button>
@@ -132,5 +132,9 @@ input {
 	margin: 0px;
 	border: 0px;
 	background-color: rgb(175, 173, 173);
+}
+.colSmall {
+	text-align: center;
+	width: 16%;
 }
 </style>
