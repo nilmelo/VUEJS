@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ProjetoEscolar.WebAPI.Controllers
@@ -14,31 +15,66 @@ namespace ProjetoEscolar.WebAPI.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok();
+             try
+            {
+                return Ok();  
+            }
+            catch (System.Exception)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, "[ERROR_DB] Falha na conexão");
+            }
         }
 
         [HttpGet("{StudentId}")]
         public IActionResult Get(int studentId)
         {
-            return Ok();
+             try
+            {
+                return Ok();  
+            }
+            catch (System.Exception)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, "[ERROR_DB] Falha na conexão");
+            }
         }
 
         [HttpPost]
         public IActionResult Post()
         {
-            return Ok();
+             try
+            {
+                return Ok();  
+            }
+            catch (System.Exception)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, "[ERROR_DB] Falha na conexão");
+            }
         }
 
         [HttpPut("{StudentId}")]
         public IActionResult Put(int studentId)
         {
-            return Ok();
+             try
+            {
+                return Ok();  
+            }
+            catch (System.Exception)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, "[ERROR_DB] Falha na conexão");
+            }
         }
 
         [HttpDelete("{StudentId}")]
         public IActionResult Delete(int studentId)
         {
-            return Ok();
+             try
+            {
+                return Ok();  
+            }
+            catch (System.Exception)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, "[ERROR_DB] Falha na conexão");
+            }
         }
     }
 }
