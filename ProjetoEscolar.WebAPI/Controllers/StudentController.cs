@@ -1,5 +1,8 @@
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ProjetoEscolar.WebAPI.Data;
+using ProjetoEscolar.WebAPI.Models;
 
 namespace ProjetoEscolar.WebAPI.Controllers
 {
@@ -7,17 +10,20 @@ namespace ProjetoEscolar.WebAPI.Controllers
     [ApiController]
     public class StudentController : Controller
     {
-        public StudentController()
-        {
+        private readonly IRepository _repo;
 
+        public StudentController(IRepository repo)
+        {
+            _repo = repo;
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
             try
             {
-                return Ok();  
+                var result = await _repo.GetAllStudentsAsync(true);
+                return Ok(result);  
             }
             catch (System.Exception)
             {
@@ -25,12 +31,27 @@ namespace ProjetoEscolar.WebAPI.Controllers
             }
         }
 
-        [HttpGet("{ProfessorId}")]
-        public IActionResult Get(int professorId)
+        [HttpGet("{StudentId}")]
+        public async Task<IActionResult> GetByStudentId(int StudentId)
         {
              try
             {
-                return Ok();  
+                var result = await _repo.GetStudentAsyncById(StudentId, true);
+                return Ok(result);  
+            }
+            catch (System.Exception)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, "[ERROR_DB] Falha na conexão");
+            }
+        }
+
+        [HttpGet("ByProfessor/{ProfessorId}")]
+        public async Task<IActionResult> GetByProfessorId(int ProfessorId)
+        {
+             try
+            {
+                var result = await _repo.GetStudentsAsyncByProfessorId(ProfessorId, true);
+                return Ok(result);  
             }
             catch (System.Exception)
             {
@@ -39,42 +60,70 @@ namespace ProjetoEscolar.WebAPI.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post()
+        public async Task<IActionResult> Post(Student model)
         {
-             try
+            try
             {
-                return Ok();  
+                _repo.Add(model);
+
+                if(await _repo.SaveChangesAsync())
+                {
+                    return Created($"/api/student/{model.Id}", model);
+                }
             }
             catch (System.Exception)
             {
                 return this.StatusCode(StatusCodes.Status500InternalServerError, "[ERROR_DB] Falha na conexão");
             }
+
+            return BadRequest();
         }
 
-        [HttpPut("{ProfessorId}")]
-        public IActionResult Put(int professorId)
+        [HttpPut("{StudentId}")]
+        public async Task<IActionResult> Put(int StudentId, Student model)
         {
              try
             {
-                return Ok();  
+                var student = await _repo.GetStudentAsyncById(StudentId, false);
+                if (student == null) return NotFound();
+
+                _repo.Update(model);
+
+                if(await _repo.SaveChangesAsync())
+                {
+                    student = await _repo.GetStudentAsyncById(StudentId, true);
+                    return Created($"/api/student/{model.Id}", student);
+                }  
             }
             catch (System.Exception)
             {
                 return this.StatusCode(StatusCodes.Status500InternalServerError, "[ERROR_DB] Falha na conexão");
             }
+
+            return BadRequest();
         }
 
-        [HttpDelete("{ProfessorId}")]
-        public IActionResult Delete(int professorId)
+        [HttpDelete("{StudentId}")]
+        public async Task<IActionResult> Delete(int StudentId)
         {
              try
             {
-                return Ok();  
+                var student = await _repo.GetStudentAsyncById(StudentId, false);
+                if (student == null) return NotFound();
+                
+                _repo.Delete(student);
+
+                if(await _repo.SaveChangesAsync())
+                {
+                    return Ok();
+                }  
             }
             catch (System.Exception)
             {
                 return this.StatusCode(StatusCodes.Status500InternalServerError, "[ERROR_DB] Falha na conexão");
             }
+            
+            return BadRequest();
         }
     }
 }
