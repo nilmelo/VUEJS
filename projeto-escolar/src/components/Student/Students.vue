@@ -33,7 +33,11 @@
 				</tr>
 			</tbody>
 			<tfoot v-else>
-				Nenhum Aluno Encontrado.
+				<tr>
+                    <td colspan="3" style="text-align: center">
+                        <h5>Nenhum Aluno Encontrado.</h5>
+                    </td>
+                </tr>
 			</tfoot>
 		</table>
 	</div>
@@ -60,14 +64,13 @@ export default {
 			this.loadProfessors();
 			this.$http
 				.get(
-					"http://localhost:3000/students?professor.id=" +
-						this.professorid
+					`http://localhost:5000/api/student/ByProfessor/${this.professorid}`
 				)
 				.then((res) => res.json())
 				.then((students) => (this.students = students));
 		} else {
 			this.$http
-				.get("http://localhost:3000/students")
+				.get("http://localhost:5000/api/student")
 				.then((res) => res.json())
 				.then((students) => (this.students = students));
 		}
@@ -78,14 +81,12 @@ export default {
 			let _student = {
 				name: this.name,
 				lastname: "",
-				professor: {
-					id: this.professor.id,
-					name: this.professor.name
-				}
+				dateBirth: "",
+				professorid: this.professor.id
 			};
 
 			this.$http
-				.post("http://localhost:3000/students", _student)
+				.post("http://localhost:5000/api/student", _student)
 				.then((res) => res.json())
 				.then((studentReturned) => {
 					this.students.push(studentReturned);
@@ -94,7 +95,7 @@ export default {
 		},
 		remove(student) {
 			this.$http
-				.delete(`http://localhost:3000/students/${student.id}`)
+				.delete(`http://localhost:5000/api/student/${student.id}`)
 				.then(() => {
 					let i = this.students.indexOf(student);
 					this.students.splice(i, 1);
@@ -102,7 +103,7 @@ export default {
 		},
 		loadProfessors() {
                 this.$http
-                    .get('http://localhost:3000/professors/'+ this.professorid)
+                    .get('http://localhost:5000/api/professor/'+ this.professorid)
                     .then(res => res.json())
                     .then(professors => {
                         this.professor = professors

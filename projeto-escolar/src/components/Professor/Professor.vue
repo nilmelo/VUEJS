@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Title text_info="Professores"/>
+        <Title text_info="Professores" btnBack="true"/>
         <table border="1px">
 			<thead>
 				<th>Código</th>
@@ -19,7 +19,11 @@
 				</tr>
 			</tbody>
 			<tfoot v-else>
-				Nenhum Aluno Encontrado.
+                <tr>
+                    <td colspan="3" style="text-align: center">
+                        <h5>Nenhum Professor Encontrado.</h5>
+                    </td>
+                </tr>	
 			</tfoot>
 		</table>
     </div>
@@ -40,7 +44,7 @@ import Title from '../shared/Title'
        },
        created() {
 		this.$http
-			.get('http://localhost:3000/students')
+			.get('http://localhost:5000/api/student')
 			.then(res => res.json())
 			.then(students => {
                 this.students = students;
@@ -63,7 +67,7 @@ import Title from '../shared/Title'
             },
             loadProfessors() {
                 this.$http
-                    .get('http://localhost:3000/professors')
+                    .get('http://localhost:5000/api/professor')
                     .then(res => res.json())
                     .then(professors => {
                         this.professors = professors;

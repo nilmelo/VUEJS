@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Title text_info="Sobre"/>
+        <Title text_info="Sobre" btnBack="true"/>
         <p>Amostra simples de conhecimentos em .Net Core 2.2 com Vue.js</p>
     </div>
 </template>
